@@ -1,0 +1,18 @@
+# Core Database Toolkit
+sqlalchemy>=2.0.0      # For schema inspection and engine management
+pandas>=2.0.0          # For formatting query results into tables
+
+# Database Drivers (Install the one matching your DB)
+psycopg2-binary        # For PostgreSQL
+# pymysql              # For MySQL
+# excel-rd             # For Excel/CSV if using duckdb
+
+# LLM & Agent Frameworks
+openai>=1.0.0          # Standard for GPT-4o or compatible APIs
+langchain>=0.1.0       # For prompt templates and chain management
+langgraph>=0.0.15      # Essential for the Reflexion Loop state machine
+pydantic>=2.0.0        # For strict data validation and output parsing
+
+# Utilities
+python-dotenv          # To manage your API keys and DB URLs safely
+rich                   # For beautiful terminal output (great for debugging agents)
