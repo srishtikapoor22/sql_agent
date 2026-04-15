@@ -71,3 +71,25 @@ Set your OpenAI API key and run the demo:
 * A simple while loop combined with careful prompt design and structured output can make even small models very robust.
 * Treating database errors as useful feedback — rather than just failures — changes how we design agentic systems.
 
+## Reflexion in Action: A Logic Healing Example
+
+This example demonstrates how the agent handles a "silent failure" (valid SQL that returns no data).
+
+**User Question:** *"Find all orders that were 'processed'"*
+
+```text
+--- Attempt 1 (Syntactic Success, Logical Failure) ---
+Reflexion: No orders with a status of 'processed' were found in the provided data.
+SQL: SELECT * FROM orders WHERE status = 'processed';
+Logic Check: Query successful but returned 0 rows. Triggering Reflexion...
+
+--- Attempt 2 (Reflexion & Self-Correction) ---
+Reflexion: The previous query returned 0 results because 'processed' is not a valid 
+           status in the schema. The sample data shows 'shipped', 'pending', and 'cancelled'.
+SQL: SELECT * FROM orders WHERE status IN ('shipped', 'pending', 'cancelled');
+Success!
+
+FINAL RESULT:
+-> (101, 1, 150.5, 'shipped')
+-> (102, 2, 89.99, 'pending')
+-> (103, 1, 45.0, 'cancelled')

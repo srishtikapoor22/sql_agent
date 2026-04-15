@@ -48,6 +48,15 @@ def run_agentic_query(user_input:str):
             cursor.execute(response.sql)
             results = cursor.fetchall()
             conn.close()
+
+            if len(results) == 0:
+                print("⚠️ Logic Check: Query successful but returned 0 rows. Triggering Reflexion...")
+                error_msg = "The query returned 0 results. Please check if the 'WHERE' clause values (like status names) match the sample data provided in the schema."
+                
+                messages.append({"role": "assistant", "content": f"I tried: {response.sql} and got no results."})
+                messages.append({"role": "user", "content": error_msg})
+                attempts += 1
+                continue
             
             print("Success")
             return results
@@ -63,6 +72,28 @@ def run_agentic_query(user_input:str):
     return "Failed to find a valid query after 3 attempts."
 
 if __name__ == "__main__":
-    query = "Show me the names of users who have 'shipped' orders."
-    data = run_agentic_query(query)
-    print("\nFINAL RESULT:", data)
+    print("Agentic SQL Assistant")
+    print("Type 'exit' or 'quit' to stop.")
+    
+    while True:
+        query = input("\nEnter your question: ")
+        
+        if query.lower() in ["exit", "quit"]:
+            print("Stooped execution")
+            break
+            
+        if not query.strip():
+            continue
+
+        try:
+            data = run_agentic_query(query)
+            
+            print("\nFINAL RESULT:")
+            if isinstance(data, list) and data:
+                for row in data:
+                    print(f"-> {row}")
+            else:
+                print(data)
+                
+        except Exception as e:
+            print(f"An unexpected error occurred: {e}")
