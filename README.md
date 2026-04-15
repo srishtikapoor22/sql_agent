@@ -4,7 +4,7 @@ Turning database errors into learning opportunities.
 
 A lightweight autonomous agent that makes natural language to SQL queries more robust and reliable.
 
-Instead of failing on the first error — such as a wrong column name, missing JOIN, or hallucinated table — the agent enters a **reflection loop**. This loop allows the agent to learn from its mistakes and intelligently repair the SQL query.
+Instead of failing on the first error — such as a wrong column name, missing JOIN, or hallucinated table — the agent enters a **reflextion loop**. This loop allows the agent to learn from its mistakes and intelligently repair the SQL query.
 
 
 ## The Idea
@@ -51,7 +51,7 @@ This reflection loop turns a brittle one-shot process into a resilient, self-cor
 
 ## Tech Stack
 
-- **LLM**: GPT-4o-mini (strong reasoning at low cost)
+- **LLM**: Llama-3.3-70b via Groq
 - **Structured Output**: Instructor + Pydantic
 - **Database**: SQLite (zero configuration)
 - **Orchestration**: Simple retry loop with conversation history
